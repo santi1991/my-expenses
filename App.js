@@ -1,22 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import AppContainer from './src/views/core/AppContainer';
 
-export default function App() {
+import AppProvider from './src/utilities/context/AppProvider';
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text style={{fontSize:22}} >Hello World! This is going to be my expense app!!</Text>
-      <Text>Coming Soon...</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AppProvider>
+      <>
+        <StatusBar style="auto" />
+        <AppContainer />
+      </>
+    </AppProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
+
