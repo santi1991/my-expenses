@@ -1,3 +1,8 @@
+export const authState = {
+	isLoading: true,
+	isOffline: false     		
+};
+
 export const expensesGroup = { 
 	currentPeriod: {},
 	totalExpense: 0,

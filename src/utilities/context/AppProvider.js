@@ -7,11 +7,14 @@ const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
 
+	const [authState, setAuthState] = useReducer(Reducer.authState, InitialState.authState);
 	const [expensesGroup, setExpensesGroup] = useReducer(Reducer.expensesGroup, InitialState.expensesGroup);
 
 	return (
 		<AppContext.Provider
-			value={{											
+			value={{	
+				authState,
+				setAuthState,										
 				expensesGroup,
 				setExpensesGroup,							
 			}}

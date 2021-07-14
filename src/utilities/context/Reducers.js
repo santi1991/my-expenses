@@ -1,6 +1,28 @@
 
 import { triggerBudgetNotification } from '../notifications/Notifications';
 
+export const authState = (state, action) => {
+	const logInUser = () => {
+		return { ...state, isLoading: false };
+	};
+	const logOutUser = () => {
+		return { ...state, isLoading: false };
+	};
+	const offlineMode = () => {
+		return { ...state, isLoading: false, isOffline: true };
+	};
+	switch (action.type) {
+		case 'LOG_IN':
+			return logInUser();
+		case 'LOG_OUT':
+			return logOutUser();
+		case 'OFFLINE':
+			return offlineMode();			
+		default:
+			return state;
+	}
+};
+
 export const expensesGroup = (state, action) => {
 	//-----   common helpers   -------------------------------------------------------
 	const createPieData =  (categoryArray) => {
