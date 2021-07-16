@@ -26,10 +26,66 @@ const userExpenses = [
         description: 'pago alquiler airbnb',
         date: 1626215119,
         category_name: 'Alojamiento', // join made in the query
-        concept_name: 'Arriendo' // join made in the query
+        concept_name: 'Servicio Público' // join made in the query
     },
+    {
+        id: 3,
+        category_id: 2,
+        concept_id: 7,
+        value: 1000000,
+        description: 'pago uber',
+        date: 1626215119,
+        category_name: 'Transporte', // join made in the query
+        concept_name: 'Servicio Público' // join made in the query
+    },
+    {
+        id: 4,
+        category_id: 3,
+        concept_id: 14,
+        value: 1000000,
+        description: 'pago agua',
+        date: 1626215119,
+        category_name: 'Facturas', // join made in the query
+        concept_name: 'Agua' // join made in the query
+    },
+    // {
+    //     id: 5,
+    //     category_id: 4,
+    //     concept_id: 20,
+    //     value: 1000000,
+    //     description: 'pago cine',
+    //     date: 1626215119,
+    //     category_name: 'Gastos Personales', // join made in the query
+    //     concept_name: 'Entretenimiento' // join made in the query
+    // },
+    // {
+    //     id: 6,
+    //     category_id: 5,
+    //     concept_id: 27,
+    //     value: 1000000,
+    //     description: 'pago mercado',
+    //     date: 1626215119,
+    //     category_name: 'Comida', // join made in the query
+    //     concept_name: 'Mercado' // join made in the query
+    // },
+    // {
+    //     id: 7,
+    //     category_id: 6,
+    //     concept_id: 31,
+    //     value: 1000000,
+    //     description: 'pago estudio',
+    //     date: 1626215119,
+    //     category_name: 'Créditos', // join made in the query
+    //     concept_name: 'Estudio' // join made in the query
+    // },
 ];
-const userBudgets = []; //id category_id  budgets
+const userBudgets = [
+    {
+        id: 1,
+        category_id: 1,
+        budget: 2000000
+    }
+]; //id category_id  budgets
 
 // visible, splashScreen, loadScreen, onHide
 const ResolveAppData = ({ visible, onHide }) => {
@@ -47,7 +103,7 @@ const ResolveAppData = ({ visible, onHide }) => {
         setTimeout(() => {            
             setExpensesGroup({ type: 'INITIALIZE', payload: expensesGroup });
             setAuthState({ type: 'LOG_IN' })
-        }, 1500);
+        }, 1000);
 
 	}, []);
 

@@ -13,9 +13,9 @@ import HeaderProfile from './HeaderProfile';
 const ExpenseDetailScreen = ({ navigation, route }) => {
 
 	// console.log('render:  E X P E N S E   P R O F I L E');
-	const { expensesGroup } = useContext(AppContext);	
+	const { expensesGroup } = useContext(AppContext);
 
-	const refFirstRender = useRef(true); 
+	const refFirstRender = useRef(true);
 	const refConceptsList = useRef([]);
 	const refExpense = useRef({}); // object or null
 
@@ -87,7 +87,7 @@ const ExpenseDetailScreen = ({ navigation, route }) => {
 			expenses: currentExpenseClass,
 			filteredExpenses: currentExpenseClass
 		});
-	}, [expensesGroup]); 
+	}, [expensesGroup]);
 
 	return (
 		<SafeAreaView style={localStyles.container}>
@@ -102,31 +102,29 @@ const ExpenseDetailScreen = ({ navigation, route }) => {
 				showFilter={showExpensesFilter}
 			/>
 
-			<ResumeProfile 
+			<ResumeProfile
 				totalExpense={expensesGroup.totalExpense}
 				currentPeriod={expensesGroup.currentPeriod}
 				category={expenseData.category}
 				expenses={expenseData.expenses}
 			/>
 
-			<ExpensesList 
+			<ExpensesList
 				list={expenseData.filteredExpenses}
 				onClickItem={showAddExpense}
 				color={expenseData.category.color}
 			/>
 
-			{/* THIS WAY THE STATE IS CLEANED WHEN THE MODAL IS CLOSED - NO NEED TO CLEAN THE STATE */}
-			{
-				addExpenseVisible && (
-					<AddExpense
-						visible={addExpenseVisible}
-						expenseInfo={refExpense.current}
-						selectedCategory={expenseData.category} 
-						selectedClass={expenseData.expenses}
-						onHideModal={hideAddExpense}						
-					/>
-				)
-			}
+			{/* THIS WAY THE STATE IS CLEANED WHEN THE MODAL IS CLOSED - NO NEED TO CLEAN THE STATE (rendered conditionally) */}
+
+			<AddExpense
+				visible={addExpenseVisible}
+				expenseInfo={refExpense.current}
+				selectedCategory={expenseData.category}
+				selectedClass={expenseData.expenses}
+				onHideModal={hideAddExpense}
+			/>
+
 
 			{/* THIS WAY THE STATE IS NOT CLEANED WHEN THE MODAL IS CLOSED */}
 			<ExpensesFilter
@@ -136,7 +134,7 @@ const ExpenseDetailScreen = ({ navigation, route }) => {
 				onHideModal={hideExpensesFilter}
 				masterDataSource={expenseData.expenses}
 				conceptsList={refConceptsList.current}
-			/>			
+			/>
 
 		</SafeAreaView>
 	);
@@ -148,6 +146,6 @@ const localStyles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: 'white'
-	},		
+	},
 });
 

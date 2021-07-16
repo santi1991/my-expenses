@@ -7,7 +7,7 @@ import TouchableView from './TouchableView';
 //data - onClickItem --> ARE required
 // data, disabled and title are props that expects the component to re-render if its values changes
 const DroplistMenu = ({ disabled, data, onClickItem, initialNumToRender = 10, title = 'elegir...', titleContainer, titleStyle,
-	icon = 'chevron-down', color = 'black', buttonStyle }) => {
+	icon = 'chevron-down', color = 'blue', buttonStyle }) => {
 
 	// console.log('render:  D R O P L I S T   M E N U');
 	const [visible, setVisible] = useState(false);
@@ -60,7 +60,7 @@ const DroplistMenu = ({ disabled, data, onClickItem, initialNumToRender = 10, ti
 								{title === '' ? staticTitle() : title.toUpperCase()}
 							</Text>
 
-							<View style={[localStyles.iconContainer, { backgroundColor: 'blue'}, buttonStyle]}>
+							<View style={[localStyles.iconContainer, { backgroundColor: color}, buttonStyle]}>
 								<MaterialCommunityIcons name='chevron-down' size={24} color='white'  />
 							</View>
 							

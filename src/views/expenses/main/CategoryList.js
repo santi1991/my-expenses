@@ -14,7 +14,7 @@ const BudgetButton = ({ category, onClick: showAddBudget }) => (
 	>
 		{
 			category.budget === 0 ? (
-				<View style={{ flexDirection: 'row', alignItems: 'center', justifyContent:'center' }}>
+				<View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
 					<Caption style={{ color: 'white', flex: 0.9, textAlign: 'center', fontWeight: 'bold' }}>
 						CREAR PRESUPUESTO
 					</Caption>
@@ -22,7 +22,7 @@ const BudgetButton = ({ category, onClick: showAddBudget }) => (
 				</View>
 			) : (
 				<>
-					<View style={{ flexDirection: 'row', alignItems: 'center', justifyContent:'center' }} >
+					<View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} >
 						<Paragraph style={localStyles.textStyle} >Presupuesto</Paragraph>
 						<MaterialCommunityIcons name='circle-edit-outline' size={20} color='white' />
 					</View>
@@ -40,13 +40,13 @@ const ExpenseButton = ({ category, onClick: showAddExpense }) => (
 	>
 		{
 			category.value === 0 ? (
-				<View style={{ flexDirection: 'row', alignItems: 'center', justifyContent:'center' }}>
+				<View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
 					<Paragraph style={{ color: 'white', flex: 0.7, textAlign: 'center', fontWeight: 'bold' }} >NUEVO GASTO</Paragraph>
 					<MaterialCommunityIcons name='plus-circle-outline' size={24} color='white' />
 				</View>
 			) : (
 				<>
-					<View style={{ flexDirection: 'row', alignItems: 'center', justifyContent:'center' }} >
+					<View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} >
 						<Paragraph style={localStyles.textStyle}>Gasto</Paragraph>
 						<MaterialCommunityIcons name='plus-circle-outline' size={21} color='white' />
 					</View>
@@ -68,6 +68,16 @@ const CategoryList = ({ categoryExpenses, totalExpense, toEditExpenses, showAddE
 
 	const renderListCategories = ({ item }) => {
 		// console.log(item);
+		const setProgress = () => {
+			let barProgress = 0;
+			let labelProgress = '0%';
+			if (item.budget > item.value) {
+				barProgress = item.value / item.budget;
+				labelProgress = `${(barProgress * 100).toFixed(1)}%`;
+			}
+			return { barProgress, labelProgress };
+		};
+
 		return (
 			<View style={localStyles.categoryView}>
 
@@ -99,14 +109,33 @@ const CategoryList = ({ categoryExpenses, totalExpense, toEditExpenses, showAddE
 
 						</View>
 
-						<ProgressBar
-							// visible={true}
-							progress={0.5}
-							color={item.third_color}
-							style={localStyles.barStyle}
-						/>
+						{
+							item.budget === 0 ? (
+								<Caption style={{ color: 'white', fontStyle:'italic' }}>
+									Agrega un presupuesto para ver el progreso
+								</Caption>
+							) : (
+								<>
+									<ProgressBar
+										visible={item.budget > item.value || false}
+										progress={setProgress().barProgress}
+										color={item.third_color}
+										style={localStyles.barStyle}
+									/>
 
-						<Text style={localStyles.textStyle} >Progreso Presupuesto: 50%</Text>
+									<Text style={{ color: 'white' }}>
+										{
+											item.budget > item.value ? 
+												`Progreso Presupuesto: ${setProgress().labelProgress}` :
+												'...debes actualizar tu presupuesto.'
+										}
+										
+									</Text>
+								</>
+							)
+						}
+
+
 
 					</View>
 
@@ -127,14 +156,7 @@ const CategoryList = ({ categoryExpenses, totalExpense, toEditExpenses, showAddE
 				extraData={categoryExpenses}
 				renderItem={renderListCategories}
 				keyExtractor={item => (item.id).toString()}
-				numColumns={dimensions.width >= 768 ? 2 : 1}
-				ListHeaderComponent={
-					<>
-						<Paragraph>Gasto Total</Paragraph>
-						<FormatNumber value={totalExpense} style={{ color: 'black' }} />
-					</>
-				}
-				ListHeaderComponentStyle={{ flexDirection: 'row', justifyContent: 'space-evenly' }}
+				numColumns={dimensions.width >= 768 ? 2 : 1}				
 			/>
 		</View>
 	);
@@ -155,7 +177,8 @@ const localStyles = StyleSheet.create({
 		...Platform.select({
 			web: {
 				alignItems: 'center',
-				height: '50%',
+				marginBottom: 10
+				//height: '50%',
 				//backgroundColor: 'white',			
 			},
 			android: {
@@ -218,7 +241,7 @@ const localStyles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		borderWidth: 0.3,
-		borderColor: 'grey',		
+		borderColor: 'grey',
 		borderRadius: 8,
 		padding: 1
 	},

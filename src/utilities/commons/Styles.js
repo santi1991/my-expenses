@@ -43,6 +43,11 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: 'white',
 	}, 
+	dividerContainer: {
+		height: 1.5,
+		marginBottom: 3,
+		marginTop: 3
+	},
 	
 	//--------------------------------------------------------------
 	//--------------   D I A L O G   S T Y L E   -------------------

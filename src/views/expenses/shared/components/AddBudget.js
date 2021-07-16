@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { Portal, Modal, Subheading, Avatar, Title, Button, ProgressBar, Divider } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AppContext } from '../../../../utilities/context/AppProvider';
+import { randomInteger } from '../../../../utilities/commons/Utils';
 import Loader from '../../../../utilities/components/Loader';
 import CurrencyInput from '../../../../utilities/components/CurrencyInput';
 import { styles } from '../../../../utilities/commons/Styles';
@@ -42,12 +43,10 @@ const AddBudget = ({ visible, onHideModal, category }) => {
 		};
 		//if there is a budget_id it means the user is updating an existing budget
 		if (category.budget_id !== null) {
-			console.log('callUpdateBudget');
 			budgetFields.id = category.budget_id;
 			return callUpdateBudget(budgetFields);
 		}
 		else {
-			console.log('callPutBudget');
 			return callPutBudget(budgetFields);
 		}
 	};
@@ -55,50 +54,72 @@ const AddBudget = ({ visible, onHideModal, category }) => {
 	const callPutBudget = async (budgetFields) => {
 		// const selectedCategory = refCategoryData.current;
 		setLoading(true);
-		putBudget(budgetFields)
-			.then((newBudget) => {
-				const updatedCategory = {
-					...category,
-					budget_id: newBudget.id,
-					budget: newBudget.budget,
-					alert: true
-				};
-				return setExpensesGroup({ type: 'UPDATE_CATEGORY', payload: updatedCategory });
-				// return updateCategoryExpenses(updatedCategory);
-			})
-			.catch((error) => {
-				alert('error' + JSON.stringify(error));
-			})
-			.finally(() => {
-				setLoading(false);
-				handleOnDismiss();
-			});
+		// putBudget(budgetFields)
+		// 	.then((newBudget) => {
+		// 		const updatedCategory = {
+		// 			...category,
+		// 			budget_id: newBudget.id,
+		// 			budget: newBudget.budget,
+		// 			alert: true
+		// 		};
+		// 		return setExpensesGroup({ type: 'UPDATE_CATEGORY', payload: updatedCategory });
+		// 		// return updateCategoryExpenses(updatedCategory);
+		// 	})
+		// 	.catch((error) => {
+		// 		alert('error' + JSON.stringify(error));
+		// 	})
+		// 	.finally(() => {
+		// 		setLoading(false);
+		// 		handleOnDismiss();
+		// 	});
+		const updatedCategory = {
+			...category,
+			budget_id: randomInteger(1, 999),
+			budget: budget,
+			alert: true
+		};
+		setExpensesGroup({ type: 'UPDATE_CATEGORY', payload: updatedCategory });
+		setTimeout(() => {
+			setLoading(false);
+			handleOnDismiss();
+		}, 1500);
 	};
 
 	const callUpdateBudget = async (budgetFields) => {
 		setLoading(true);
-		updateBudget(budgetFields)
-			.then(() => {
-				// when updating -> the succesfull response from KNEX is 1, not returning the data				
-				const updatedCategory = {
-					...category,
-					budget_id: budgetFields.id,
-					budget: budgetFields.budget,
-					alert: true
-				};
-				return setExpensesGroup({ type: 'UPDATE_CATEGORY', payload: updatedCategory });
-				// return updateCategoryExpenses(updatedCategory);
+		// updateBudget(budgetFields)
+		// 	.then(() => {
+		// 		// when updating -> the succesfull response from KNEX is 1, not returning the data				
+		// 		const updatedCategory = {
+		// 			...category,
+		// 			budget_id: budgetFields.id,
+		// 			budget: budgetFields.budget,
+		// 			alert: true
+		// 		};
+		// 		return setExpensesGroup({ type: 'UPDATE_CATEGORY', payload: updatedCategory });
+		// 		// return updateCategoryExpenses(updatedCategory);
 
-			})
-			.catch((error) => {
-				alert('error' + JSON.stringify(error));
-			})
-			.finally(() => {
-				setLoading(false);
-				handleOnDismiss();
-			});
+		// 	})
+		// 	.catch((error) => {
+		// 		alert('error' + JSON.stringify(error));
+		// 	})
+		// 	.finally(() => {
+		// 		setLoading(false);
+		// 		handleOnDismiss();
+		// 	});
+		const updatedCategory = {
+			...category,
+			budget_id: budgetFields.id,
+			budget: budgetFields.budget,
+			alert: true
+		};
+		setExpensesGroup({ type: 'UPDATE_CATEGORY', payload: updatedCategory });
+		setTimeout(() => {
+			setLoading(false);
+			handleOnDismiss();
+		}, 1500);
 	};
-	
+
 	const handleOnDismiss = () => {
 		setBudget(0);
 		return onHideModal();
@@ -162,7 +183,7 @@ const AddBudget = ({ visible, onHideModal, category }) => {
 							inputContainer={styles.input}
 							onChangeNumber={setBudget}
 							placeholder={'0.0...'}
-							// onChange={onRefChange}
+						// onChange={onRefChange}
 						/>
 
 					</View>
@@ -180,7 +201,7 @@ const AddBudget = ({ visible, onHideModal, category }) => {
 					<Subheading style={{ textAlign: 'center' }} >
 						Progreso Presupuesto:{' '}
 						<Title>{setProgress().labelProgress}</Title>
-						
+
 					</Subheading>
 
 					<View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginTop: 15 }} >

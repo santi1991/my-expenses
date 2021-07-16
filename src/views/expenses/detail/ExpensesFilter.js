@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View } from 'react-native';
-import { Button, Dialog, Portal, Text, Divider, IconButton } from 'react-native-paper';
+import { Button, Dialog, Portal, Text, Divider, IconButton, Modal } from 'react-native-paper';
 import { styles, colors } from '../../../utilities/commons/Styles';
 import { filterExpenses } from '../shared/Utils';
 import CurrencyInput from '../../../utilities/components/CurrencyInput';
@@ -53,7 +53,7 @@ const ExpensesFilter = ({ visible, onHideModal, onFilter, onClean, masterDataSou
 	//*********************************************************************
 	const initialDate = useRef(null); // ##*** search parameter -> number ***##
 	const finalDate = useRef(null); // ##*** search parameter -> number ***##
-	
+
 	const selectedDate = (startDate, endDate) => {
 		initialDate.current = startDate;
 		finalDate.current = endDate;
@@ -62,7 +62,7 @@ const ExpensesFilter = ({ visible, onHideModal, onFilter, onClean, masterDataSou
 			filter: [startDate, endDate]
 		};
 		addToFilterArray(filterObject);
-		setRender(!render);	
+		setRender(!render);
 	};
 	const onCleanDateRange = () => {
 		deleteFromFilterArray(2);
@@ -161,144 +161,141 @@ const ExpensesFilter = ({ visible, onHideModal, onFilter, onClean, masterDataSou
 	};
 
 	return (
-		<View>
-			<Portal>
-				<Dialog
-					dismissable={true}
-					visible={visible}
-					onDismiss={closeFilterModal}
-					style={styles.dialogContainer}
-				>
-					<Dialog.Content>
-						
-						<View style={styles.dialogPairContainer}>
+		<Portal>
+			<Modal
+				dismissable={true}
+				visible={visible}
+				onDismiss={closeFilterModal}
+				contentContainerStyle={styles.modalContainer}
+			>
+				<View>
 
-							<Text>Por Concepto</Text>
+					<View style={styles.modalPairContainer}>
 
-							<DroplistMenu
-								color={colors.secondary}
-								title={concept_name.current}
-								data={conceptsList}
-								onClickItem={onSelectConcept}
-								titleContainer={{ width: 145 }}
-							/>
+						<Text>Por Concepto</Text>
 
-							<IconButton
-								disabled={!concept_name.current}
-								icon={clearIcon}
-								color='black'
-								size={20}
-								onPress={onCleanConcept}
-							/>
+						<DroplistMenu
+							title={concept_name.current}
+							data={conceptsList}
+							onClickItem={onSelectConcept}
+							titleContainer={{ width: 145 }}
+						/>
 
-						</View>
+						<IconButton
+							disabled={!concept_name.current}
+							icon={clearIcon}
+							color='black'
+							size={20}
+							onPress={onCleanConcept}
+						/>
 
-						<Divider style={styles.dividerContainer} />
+					</View>
 
-						<Text>Por Rango de Fecha</Text>
+					<Divider style={styles.dividerContainer} />
 
-						<View style={styles.dialogPairContainer}>
+					<Text>Por Rango de Fecha</Text>
 
-							<RangeDatePicker
-								startDate={initialDate.current}
-								endDate={finalDate.current}
-								onConfirm={selectedDate}
-								containerStyle={{ width: 220 }}
-							/>
+					<View style={styles.modalPairContainer}>
+
+						<RangeDatePicker
+							startDate={initialDate.current}
+							endDate={finalDate.current}
+							onConfirm={selectedDate}
+							containerStyle={{ width: 220 }}
+						/>
 
 
 
-							<IconButton
-								disabled={!finalDate.current}
-								icon={clearIcon}
-								color='black'
-								size={20}
-								onPress={onCleanDateRange}
-							/>
+						<IconButton
+							disabled={!finalDate.current}
+							icon={clearIcon}
+							color='black'
+							size={20}
+							onPress={onCleanDateRange}
+						/>
 
-						</View>
+					</View>
 
-						<View style={styles.dialogPairContainer}>
+					<View style={styles.modalPairContainer}>
 
-							<ButtonToggle
-								activeColor={colors.secondary}
-								buttonContainer={{ height: 35, width: 90 }}
-								titleLeft={'Reciente'}
-								titleRight={'Antiguo'}
-								spacing={10}
-								values={['newest', 'oldest']}
-								defaultValue={dateOrder}
-								onSelect={(val) => onSelectDateOrder(val)}
-							/>
+						<ButtonToggle
+							activeColor={colors.secondary}
+							buttonContainer={{ height: 35, width: 90 }}
+							titleLeft={'Reciente'}
+							titleRight={'Antiguo'}
+							spacing={10}
+							values={['newest', 'oldest']}
+							defaultValue={dateOrder}
+							onSelect={(val) => onSelectDateOrder(val)}
+						/>
 
-							<IconButton
-								disabled={!dateOrder}
-								icon={clearIcon}
-								color='black'
-								size={20}
-								onPress={onCleanDateOrder}
-							/>
+						<IconButton
+							disabled={!dateOrder}
+							icon={clearIcon}
+							color='black'
+							size={20}
+							onPress={onCleanDateOrder}
+						/>
 
-						</View>
+					</View>
 
-						<Divider style={styles.dividerContainer} />
+					<Divider style={styles.dividerContainer} />
 
-						<Text>Por Valor</Text>
+					<Text>Por Valor</Text>
 
-						<View style={styles.dialogPairContainer}>
+					<View style={styles.modalPairContainer}>
 
-							<CurrencyInput
-								value={valueRange.firstValue}
-								inputContainer={[styles.input, { width: 115 }]}
-								onChangeNumber={(number) => onSelectValueRange('first', number)}
-								placeholder={'Min.'}
-							/>
+						<CurrencyInput
+							value={valueRange.firstValue}
+							inputContainer={[styles.input, { width: 115 }]}
+							onChangeNumber={(number) => onSelectValueRange('first', number)}
+							placeholder={'Min.'}
+						/>
 
-							<CurrencyInput
-								value={valueRange.lastValue}
-								inputContainer={[styles.input, { width: 115 }]}
-								onChangeNumber={(number) => onSelectValueRange('last', number)}
-								placeholder={'Max.'}
-							/>
+						<CurrencyInput
+							value={valueRange.lastValue}
+							inputContainer={[styles.input, { width: 115 }]}
+							onChangeNumber={(number) => onSelectValueRange('last', number)}
+							placeholder={'Max.'}
+						/>
 
-							<IconButton
-								disabled={!valueRange.lastValue || !valueRange.firstValue}
-								icon={clearIcon}
-								color='black'
-								size={20}
-								onPress={onCleanValueRange}
-							/>
-						</View>
+						<IconButton
+							disabled={!valueRange.lastValue || !valueRange.firstValue}
+							icon={clearIcon}
+							color='black'
+							size={20}
+							onPress={onCleanValueRange}
+						/>
+					</View>
 
-						<View style={styles.dialogPairContainer}>
+					<View style={styles.modalPairContainer}>
 
-							<ButtonToggle
-								activeColor={colors.secondary}
-								buttonContainer={{ height: 35, width: 90 }}
-								titleLeft={'De Mayor'}
-								titleRight={'De Menor'}
-								spacing={10}
-								values={['highest', 'lowest']}
-								defaultValue={valueOrder}
-								onSelect={(val) => onSelectValueOrder(val)}
-							/>
+						<ButtonToggle
+							activeColor={colors.secondary}
+							buttonContainer={{ height: 35, width: 90 }}
+							titleLeft={'De Mayor'}
+							titleRight={'De Menor'}
+							spacing={10}
+							values={['highest', 'lowest']}
+							defaultValue={valueOrder}
+							onSelect={(val) => onSelectValueOrder(val)}
+						/>
 
-							<IconButton
-								disabled={!valueOrder}
-								icon={clearIcon}
-								color='black'
-								size={20}
-								onPress={onCleanValueOrder}
-							/>
+						<IconButton
+							disabled={!valueOrder}
+							icon={clearIcon}
+							color='black'
+							size={20}
+							onPress={onCleanValueOrder}
+						/>
 
-						</View>
+					</View>
 
-						<Divider style={styles.dividerContainer} />
-
-					</Dialog.Content>
+					<Divider style={styles.dividerContainer} />
 
 
-					<Dialog.Actions style={{ justifyContent: 'space-around' }} >
+
+					<View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginTop: 15 }}>
 						<Button
 							mode='text'
 							style={{ width: 120 }}
@@ -311,7 +308,7 @@ const ExpensesFilter = ({ visible, onHideModal, onFilter, onClean, masterDataSou
 							disabled={!filterArray.current.length}
 							mode='contained'
 							color={'blue'}
-							style={{ width: 85 }}
+							style={{ width: 100 }}
 							onPress={cleanFilterOptions}
 						>
 							Limpiar
@@ -321,17 +318,14 @@ const ExpensesFilter = ({ visible, onHideModal, onFilter, onClean, masterDataSou
 							// disabled={!filterArray.current.length}
 							mode='contained'
 							onPress={applyFilterOptions}
-							style={{ width: 85 }}
+							style={{ width: 100 }}
 						>
 							Filtrar
 						</Button>
-					</Dialog.Actions>
-
-				</Dialog>
-			</Portal>
-
-			
-		</View>
+					</View>
+				</View>
+			</Modal>
+		</Portal>
 	);
 };
 

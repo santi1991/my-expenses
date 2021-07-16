@@ -31,7 +31,8 @@ export const expensesGroup = (state, action) => {
 			svg: {
 				name: item.name,
 				fill: item.color,
-				onPress: () => console.log('press', item.id),
+				onPress: () => alert('press' + item.id),
+				onClick: () => alert('press' + item.id)
 			},
 			key: `pie-${item.id}`,
 		}));

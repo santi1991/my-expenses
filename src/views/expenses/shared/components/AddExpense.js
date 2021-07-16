@@ -32,11 +32,10 @@ const AddExpense = ({ visible, onHideModal, expenseInfo, selectedCategory, selec
 		concept_name: '', // not a field of the DB 
 		concept_id: '',
 		description: '',
-		date: null,
+		date: new Date().getTime(),
 		value: 0
 	};
 	const [expense, setExpense] = useState(expenseInfo || initialState);
-
 	const [loading, setLoading] = useState(false);
 
 	const onClickItemCategory = (item) => {
@@ -104,45 +103,67 @@ const AddExpense = ({ visible, onHideModal, expenseInfo, selectedCategory, selec
 	const callUpdateExpense = async () => {
 		setLoading(true);
 		const { expenseDbFields, expenseUiFields } = generateExpenseFields();
-		updateExpense(expenseDbFields)
-			.then(() => {
-				const payloadObj = {
-					oldExpenseValue: expenseInfo.value, //expenseInfo comes as props, it is not directly modified
-					updatedExpense: expenseUiFields,
-					selectedCategory: selectedCategory,
-					selectedClass: selectedClass
-				};
-				setExpensesGroup({ type: 'UPDATE_EXPENSE', payload: payloadObj });
-			})
-			.catch((error) => {
-				alert(JSON.stringify(error));
-			})
-			.finally(() => {
-				setLoading(false);
-				handleOnDismiss();
-			});
+		// updateExpense(expenseDbFields)
+		// 	.then(() => {
+		// 		const payloadObj = {
+		// 			oldExpenseValue: expenseInfo.value, //expenseInfo comes as props, it is not directly modified
+		// 			updatedExpense: expenseUiFields,
+		// 			selectedCategory: selectedCategory,
+		// 			selectedClass: selectedClass
+		// 		};
+		// 		setExpensesGroup({ type: 'UPDATE_EXPENSE', payload: payloadObj });
+		// 	})
+		// 	.catch((error) => {
+		// 		alert(JSON.stringify(error));
+		// 	})
+		// 	.finally(() => {
+		// 		setLoading(false);
+		// 		handleOnDismiss();
+		// 	});
+		const payloadObj = {
+			oldExpenseValue: expenseInfo.value, //expenseInfo comes as props, it is not directly modified
+			updatedExpense: expenseUiFields,
+			selectedCategory: selectedCategory,
+			selectedClass: selectedClass
+		};
+		setExpensesGroup({ type: 'UPDATE_EXPENSE', payload: payloadObj });	
+		setTimeout(() => {            
+			setLoading(false);
+			handleOnDismiss();
+		}, 1500);
 	};
 
 	const callDeleteExpense = async () => {
 		setLoading(true);
 		const { expenseDbFields, expenseUiFields } = generateExpenseFields();
-		deleteExpense(expenseDbFields)
-			.then(() => {
-				const payloadObj = {
-					deletedExpense: expenseUiFields,
-					selectedCategory: selectedCategory,
-					selectedClass: selectedClass
-				};
-				setExpensesGroup({ type: 'DELETE_EXPENSE', payload: payloadObj });
-			})
-			.catch((error) => {
-				console.log(error);
-				alert('ERROR delete expense');
-			})
-			.finally(() => {
-				setLoading(false);
-				handleOnDismiss();
-			});
+		// deleteExpense(expenseDbFields)
+		// 	.then(() => {
+		// 		const payloadObj = {
+		// 			deletedExpense: expenseUiFields,
+		// 			selectedCategory: selectedCategory,
+		// 			selectedClass: selectedClass
+		// 		};
+		// 		setExpensesGroup({ type: 'DELETE_EXPENSE', payload: payloadObj });
+		// 	})
+		// 	.catch((error) => {
+		// 		console.log(error);
+		// 		alert('ERROR delete expense');
+		// 	})
+		// 	.finally(() => {
+		// 		setLoading(false);
+		// 		handleOnDismiss();
+		// 	});
+
+		const payloadObj = {
+			deletedExpense: expenseUiFields,
+			selectedCategory: selectedCategory,
+			selectedClass: selectedClass
+		};
+		setExpensesGroup({ type: 'DELETE_EXPENSE', payload: payloadObj });
+		setTimeout(() => {            
+			setLoading(false);
+			handleOnDismiss();
+		}, 1500);
 	};
 
 	const onPressAccept = () => {
@@ -179,6 +200,15 @@ const AddExpense = ({ visible, onHideModal, expenseInfo, selectedCategory, selec
 			}));
 		}
 	}, [selectedCategory]);
+
+	useEffect(() => {
+		if (expenseInfo) {
+			setExpense(prevState => ({
+				...prevState,
+				...expenseInfo
+			}));
+		}
+	}, [expenseInfo]);
 
 	return (
 		<Portal>
