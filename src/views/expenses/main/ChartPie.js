@@ -46,9 +46,9 @@ const ChartPie = ({ showAddExpense, totalExpense, pieData }) => {
 	const Labels = ({ slices }) => {
 		return slices.map((slice, index) => {
 			const { labelCentroid, pieCentroid, data } = slice;
-			console.log('____________')
-			console.log(data.svg.name);
-			console.log(labelCentroid);
+			// console.log('____________')
+			// console.log(data.svg.name);
+			// console.log(labelCentroid);
 
 			if (data.value === 0) {
 				return;
@@ -70,10 +70,18 @@ const ChartPie = ({ showAddExpense, totalExpense, pieData }) => {
 							fill={data.svg.fill}
 						/> */}
 					<Text
+						key={data.key}
 						// x={labelCentroid[0]}
 						x={modifyX(labelCentroid[0], data.svg.name)}
 						y={labelCentroid[1]}
 						fill={data.svg.fill}
+						// fill='white'
+						// textAnchor='middle'
+						// alignmentBaseline='middle'
+						// fontSize={16}
+						// fontWeight='800'
+						// stroke='black'
+						// strokeWidth={0.5}
 					>
 						{data.svg.name}
 					</Text>
@@ -84,7 +92,7 @@ const ChartPie = ({ showAddExpense, totalExpense, pieData }) => {
 	}
 
 	return (
-		<>
+		<View style={{}} >
 			{
 				totalExpense === 0 ? (
 					<TouchableView
@@ -118,7 +126,7 @@ const ChartPie = ({ showAddExpense, totalExpense, pieData }) => {
 					</PieChart>
 				)
 			}
-		</>
+		</View>
 	);
 
 };
@@ -133,11 +141,7 @@ const localStyles = StyleSheet.create({
 	pieChart: {
 		height: 300,
 		// marginTop: 10
-	},
-	progressCircle: {
-		height: 130,
-		marginTop: 85
-	},
+	},	
 	fadingContainer: {
 		// backgroundColor: 'powderblue'
 	},

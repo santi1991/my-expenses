@@ -1,25 +1,20 @@
 import React from 'react';
-import { StyleSheet, FlatList, View, TouchableHighlight, useWindowDimensions } from 'react-native';
+import { StyleSheet, FlatList, View, Platform } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
 import { utcMsToLocalString } from '../../../utilities/commons/Utils';
 import FormatNumber from '../../../utilities/components/FormatNumber';
-
+import TouchableView from '../../../utilities/components/TouchableView';
 
 const ExpensesList = ({ list, onClickItem, color }) => {
 
 	// console.log('render:  E X P E N S E S   L I S T');
-	const dimensions = useWindowDimensions();
+	// const dimensions = useWindowDimensions(); // useWindowDimensions from react-native
 				
 	const renderItem = ({ item }) => {
 		return (
-			<View style={[localStyles.itemContainer, { flex: dimensions.width >= 768 ? 0.333 : 0.5 }]} >
-				<TouchableHighlight
-					activeOpacity={0.6}
-					underlayColor='#DDDDDD'
-					onPress={() => {
-						onClickItem(item);
-						//console.log(JSON.stringify(item));
-					}}
+				<TouchableView
+					onPress={() => onClickItem(item)}
+					style={[localStyles.itemContainer, { flex: Platform.OS === 'web' ? 0.3 : 0.5 }]}
 				>
 					<>
 						<View style={[localStyles.itemHeader, { backgroundColor: color }]} >
@@ -33,8 +28,9 @@ const ExpensesList = ({ list, onClickItem, color }) => {
 							<FormatNumber value={item.value} style={{ color: 'black' }} />
 						</View>
 					</>
-				</TouchableHighlight>
-			</View>
+
+				</TouchableView>
+				
 		);
 	};
 
@@ -45,7 +41,8 @@ const ExpensesList = ({ list, onClickItem, color }) => {
 				extraData={list}
 				renderItem={renderItem}
 				keyExtractor={item => (item.id).toString()}
-				numColumns={dimensions.width >= 768 ? 3 : 2}
+				// numColumns={dimensions.width >= 768 ? 3 : 2}
+				numColumns={Platform.OS === 'web' ? 3 : 2}
 				ListEmptyComponent={
 					<Paragraph style={{ textAlign: 'center' }}>No se han encontrado resultados</Paragraph>
 				}
@@ -84,3 +81,24 @@ const localStyles = StyleSheet.create({
 	},	
 });
 
+{/* <TouchableHighlight
+					activeOpacity={0.6}
+					underlayColor='#DDDDDD'
+					onPress={() => {
+						onClickItem(item);
+						//console.log(JSON.stringify(item));
+					}}
+				>
+					<>
+						<View style={[localStyles.itemHeader, { backgroundColor: color }]} >
+							<Subheading style={{ color: 'white' }}>{item.concept_name}</Subheading>
+						</View>
+						<View style={{ justifyContent: 'space-around', alignItems: 'center' }} >
+							<Paragraph>
+								{item.date === null ? '-- / -- / --' : utcMsToLocalString(item.date)}
+							</Paragraph>
+							<Paragraph>{item.description}</Paragraph>
+							<FormatNumber value={item.value} style={{ color: 'black' }} />
+						</View>
+					</>
+				</TouchableHighlight> */}

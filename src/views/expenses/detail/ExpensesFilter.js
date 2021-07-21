@@ -166,7 +166,7 @@ const ExpensesFilter = ({ visible, onHideModal, onFilter, onClean, masterDataSou
 				dismissable={true}
 				visible={visible}
 				onDismiss={closeFilterModal}
-				contentContainerStyle={styles.modalContainer}
+				contentContainerStyle={[styles.modalContainer, { height: 380 }]}
 			>
 				<View>
 
@@ -220,8 +220,10 @@ const ExpensesFilter = ({ visible, onHideModal, onFilter, onClean, masterDataSou
 
 						<ButtonToggle
 							activeColor={colors.secondary}
-							buttonContainer={{ height: 35, width: 90 }}
+							buttonContainer={{ height: 35, width: 100 }}
 							titleLeft={'Reciente'}
+							iconLeft='arrow-up'
+							iconRight='arrow-up'
 							titleRight={'Antiguo'}
 							spacing={10}
 							values={['newest', 'oldest']}
@@ -272,9 +274,11 @@ const ExpensesFilter = ({ visible, onHideModal, onFilter, onClean, masterDataSou
 
 						<ButtonToggle
 							activeColor={colors.secondary}
-							buttonContainer={{ height: 35, width: 90 }}
+							buttonContainer={{ height: 35, width: 110 }}
+							iconLeft='arrow-up'							
 							titleLeft={'De Mayor'}
 							titleRight={'De Menor'}
+							iconRight='arrow-up'
 							spacing={10}
 							values={['highest', 'lowest']}
 							defaultValue={valueOrder}

@@ -156,7 +156,8 @@ const CategoryList = ({ categoryExpenses, totalExpense, toEditExpenses, showAddE
 				extraData={categoryExpenses}
 				renderItem={renderListCategories}
 				keyExtractor={item => (item.id).toString()}
-				numColumns={dimensions.width >= 768 ? 2 : 1}				
+				// numColumns={dimensions.width >= 768 ? 2 : 1}		
+				numColumns={Platform.OS === 'web' ? 2 : 1}		
 			/>
 		</View>
 	);

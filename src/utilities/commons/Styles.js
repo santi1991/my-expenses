@@ -74,13 +74,23 @@ const styles = StyleSheet.create({
 		backgroundColor: '#FAFAFA',
 		padding: 12,
 		borderRadius: 16,
-		marginLeft: Platform.OS === 'web' ? '36.6%' : 10,
-		marginRight: Platform.OS === 'web' ? '36.6%' : 10,
-		// ...Platform.select({
-		// 	android: {
-		// 		marginBottom: '50%'
-		// 	}
-		// })
+		// width: 400,
+		// height: 350,
+		// alignSelf:'center', 
+		// marginLeft: Platform.OS === 'web' ? 200 : 10,
+		// marginRight: Platform.OS === 'web' ? 200 : 10, //'36.6%'
+		...Platform.select({
+			android: {
+				// marginBottom: '50%'
+				marginLeft: 10,
+				marginRight: 10, 
+			},
+			web: {
+				width: 400,
+				height: 350,
+				alignSelf:'center', 
+			}
+		})
 	},
 	modalPairContainer: {
 		flexDirection: 'row',

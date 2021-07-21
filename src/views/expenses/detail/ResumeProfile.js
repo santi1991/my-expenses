@@ -50,13 +50,14 @@ const ResumeProfile = ({ category, expenses, currentPeriod, totalExpense }) => {
 			</Surface>
 
 			<View>
+
 				<Surface style={[localStyles.surface, { backgroundColor: category.third_color }]}>
-					<Text>Periodo</Text>
+					<Text style={{fontWeight:'bold'}}>Periodo</Text>
 					<Text>{firstDay} - {lastDay} / {relatedMonth} / {relatedYear}</Text>
 				</Surface>
 
-				<Surface style={[localStyles.surface, { backgroundColor: category.third_color, marginTop: 9 }]}>
-					<Text>Gasto Global</Text>
+				<Surface style={[localStyles.surface, { backgroundColor: category.third_color, marginTop: 8 }]}>
+					<Text style={{fontWeight:'bold'}}>Gasto Global</Text>
 					<FormatNumber
 						value={totalExpense}
 						style={{ color: 'black' }}
@@ -80,8 +81,8 @@ const localStyles = StyleSheet.create({
 	},
 	categorySurface: {
 		padding: 5,
-		height: 100,
-		width: Platform.OS === 'web' ? 255 : 235,
+		height: 108,
+		width: Platform.OS === 'web' ? 345 : 235,
 		justifyContent: 'space-evenly',
 		elevation: 4,
 	},
@@ -93,8 +94,8 @@ const localStyles = StyleSheet.create({
 	},
 	surface: {
 		padding: 6,
-		height: 45,
-		width: Platform.OS === 'web' ? 155 : 135,
+		height: 50,
+		width: Platform.OS === 'web' ? 245 : 135,
 		alignItems: 'center',
 		justifyContent: 'center',
 		elevation: 4,
@@ -104,6 +105,7 @@ const localStyles = StyleSheet.create({
 		alignItems: 'center'
 	},
 	pairLabel: {
+		fontWeight:'bold',
 		color: 'white',
 		marginRight: 7
 	},
