@@ -7,6 +7,7 @@ import AddExpense from '../shared/components/AddExpense';
 import ResumeProfile from './ResumeProfile';
 import ExpensesFilter from './ExpensesFilter';
 import HeaderProfile from './HeaderProfile';
+import HeaderBar from './HeaderBar';
 
 
 
@@ -94,7 +95,15 @@ const ExpenseDetailScreen = ({ navigation, route }) => {
 
 			<StatusBar barStyle='light-content' backgroundColor={expenseData.category.color} animated={true} />
 
-			<HeaderProfile
+			{/* <HeaderProfile
+				color={expenseData.category.color}
+				navigation={navigation}
+				masterDataSource={expenseData.expenses}
+				filterFunction={searchDescriptionFilter}
+				showFilter={showExpensesFilter}
+			/> */}
+
+			<HeaderBar 
 				color={expenseData.category.color}
 				navigation={navigation}
 				masterDataSource={expenseData.expenses}

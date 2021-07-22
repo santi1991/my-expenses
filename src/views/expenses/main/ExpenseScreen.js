@@ -4,6 +4,7 @@ import { Button } from 'react-native-paper';
 import { AppContext } from '../../../utilities/context/AppProvider';
 import ChartPie from './ChartPie';
 import CategoryList from './CategoryList';
+import HeaderBar from './HeaderBar';
 import AddExpense from '../shared/components/AddExpense';
 import AddBudget from '../shared/components/AddBudget';
 
@@ -47,6 +48,10 @@ const ExpenseScreen = ({ navigation, route }) => {
 
     return (
         <View style={styles.container}>
+
+            <HeaderBar
+				showAddExpense={showAddExpense}
+			/>
 
             <ChartPie
                 {...expensesGroup}

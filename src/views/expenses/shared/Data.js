@@ -413,11 +413,3 @@ export const creditConcepts = [
     },
 ];
 
-
-
-// export const housingExpenses = [];
-// export const transportExpenses = [];
-// export const billsExpenses = [];
-// export const personalExpenses = [];
-// export const foodExpenses = [];
-// export const creditExpenses = [];

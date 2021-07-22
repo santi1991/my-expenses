@@ -11,6 +11,7 @@ import DroplistMenu from '../../../../utilities/components/DroplistMenu';
 import StringInput from '../../../../utilities/components/StringInput';
 import SingleDatePicker from '../../../../utilities/components/SingleDatePicker';
 import { expense_categories } from '../Data';
+import { setStorageValue, getStorageValue } from '../../../../utilities/commons/Storage';
 // import { putExpense, updateExpense, deleteExpense } from '../../../utilities/api/Budgets';
 
 
@@ -78,7 +79,7 @@ const AddExpense = ({ visible, onHideModal, expenseInfo, selectedCategory, selec
 		setLoading(true);
 		const { expenseDbFields, expenseUiFields } = generateExpenseFields();
 		delete expenseDbFields.id;
-		expenseDbFields.date = utcMsToUtcString(expense.date);
+		// expenseDbFields.date = utcMsToUtcString(expense.date); // date in ms to UTC format to be saved on db
 		// putExpense(expenseDbFields)
 		// 	.then((savedExpense) => {
 		// 		console.log(JSON.stringify(savedExpense));
@@ -92,12 +93,24 @@ const AddExpense = ({ visible, onHideModal, expenseInfo, selectedCategory, selec
 		// 		setLoading(false);
 		// 		handleOnDismiss();
 		// 	});
+
+		const currentExpensesList = await getStorageValue('userExpenses');
+		expenseDbFields.id = randomInteger(1, 999);
+		console.log(expenseDbFields);
+		currentExpensesList.push(expenseDbFields);
+		console.log(currentExpensesList);
+		debugger;
+		await setStorageValue('userExpenses', currentExpensesList);
+		
+
 		const newExpense = { ...expenseUiFields, id: randomInteger(1, 999) };
+
+		
 		setExpensesGroup({ type: 'PUT_EXPENSE', payload: newExpense });
 		setTimeout(() => {            
             setLoading(false);
 			handleOnDismiss();
-        }, 1500);
+        }, 1000);
 	};
 
 	const callUpdateExpense = async () => {
@@ -130,7 +143,7 @@ const AddExpense = ({ visible, onHideModal, expenseInfo, selectedCategory, selec
 		setTimeout(() => {            
 			setLoading(false);
 			handleOnDismiss();
-		}, 1500);
+		}, 1000);
 	};
 
 	const callDeleteExpense = async () => {
@@ -163,7 +176,7 @@ const AddExpense = ({ visible, onHideModal, expenseInfo, selectedCategory, selec
 		setTimeout(() => {            
 			setLoading(false);
 			handleOnDismiss();
-		}, 1500);
+		}, 1000);
 	};
 
 	const onPressAccept = () => {

@@ -19,6 +19,7 @@ const AppScreens = () => {
             <Stack.Screen 
                 name='ExpenseScreen' 
                 component={ExpenseScreen} 
+                options={{ headerShown: false }}
             />
             <Stack.Screen 
                 name='ExpenseDetailScreen' 

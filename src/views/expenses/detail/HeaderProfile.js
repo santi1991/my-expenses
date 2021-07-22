@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { IconButton, Menu, Searchbar } from 'react-native-paper';
 // import { CommonActions } from '@react-navigation/native';
 
@@ -116,10 +116,16 @@ const styles = StyleSheet.create({
 	headerContainer: {
 		backgroundColor: '#263238',
 		width: '100%',
-		height: 50,
+		height: 55,
 		flexDirection: 'row',
 		alignItems: 'center',
-		elevation: 5
+		// elevation: 5,
+
+		shadowColor: '#000',
+		shadowOffset: { width: 0, height: 0.5 },
+		shadowOpacity: 0.5,
+		shadowRadius: 1,
+		elevation: Platform.OS === 'web' ? 2 : 5,
 	},
 	actionContainer: {
 		height: 50,

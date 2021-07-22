@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
 			},
 			web: {
 				width: 400,
-				height: 350,
+				height: 330,
 				alignSelf:'center', 
 			}
 		})
