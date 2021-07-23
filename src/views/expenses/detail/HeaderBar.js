@@ -61,7 +61,7 @@ const HeaderBar = ({ color, navigation, filterFunction, masterDataSource, showFi
                 visible={menuVisible}
                 onDismiss={closeMenu}
                 anchor={
-                    <Appbar.Action icon='dots-vertical' color='white' onPress={openMenu}/>
+                    <Appbar.Action disabled={true} icon='dots-vertical' color='white' onPress={openMenu}/>
 
                 }>
                 <Menu.Item
@@ -71,7 +71,7 @@ const HeaderBar = ({ color, navigation, filterFunction, masterDataSource, showFi
                 <Menu.Item
                     onPress={() => alert('option3')}
                     title='Reportes'
-                // disabled 
+                    // disabled 
                 />
                 <Menu.Item
                     onPress={() => alert('option2')}

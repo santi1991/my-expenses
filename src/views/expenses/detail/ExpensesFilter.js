@@ -166,7 +166,7 @@ const ExpensesFilter = ({ visible, onHideModal, onFilter, onClean, masterDataSou
 				dismissable={true}
 				visible={visible}
 				onDismiss={closeFilterModal}
-				contentContainerStyle={[styles.modalContainer, { height: 380 }]}
+				contentContainerStyle={[styles.modalContainer, { height: 400 }]}
 			>
 				<View>
 
@@ -178,7 +178,7 @@ const ExpensesFilter = ({ visible, onHideModal, onFilter, onClean, masterDataSou
 							title={concept_name.current}
 							data={conceptsList}
 							onClickItem={onSelectConcept}
-							titleContainer={{ width: 145 }}
+							titleContainer={{ width: 155 }}
 						/>
 
 						<IconButton
@@ -201,10 +201,8 @@ const ExpensesFilter = ({ visible, onHideModal, onFilter, onClean, masterDataSou
 							startDate={initialDate.current}
 							endDate={finalDate.current}
 							onConfirm={selectedDate}
-							containerStyle={{ width: 220 }}
+							containerStyle={{ width: 300 }}
 						/>
-
-
 
 						<IconButton
 							disabled={!finalDate.current}
@@ -215,6 +213,8 @@ const ExpensesFilter = ({ visible, onHideModal, onFilter, onClean, masterDataSou
 						/>
 
 					</View>
+
+					<Text>Por Orden de Fecha</Text>
 
 					<View style={styles.modalPairContainer}>
 
@@ -269,6 +269,8 @@ const ExpensesFilter = ({ visible, onHideModal, onFilter, onClean, masterDataSou
 							onPress={onCleanValueRange}
 						/>
 					</View>
+
+					<Text>Por Orden de Valor</Text>
 
 					<View style={styles.modalPairContainer}>
 

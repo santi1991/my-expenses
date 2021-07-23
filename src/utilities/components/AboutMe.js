@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { View, Linking, Platform } from 'react-native';
+import { View, Linking, Alert } from 'react-native';
 import { Modal, Portal, Text, Button, Avatar, Paragraph } from 'react-native-paper';
 import { styles } from '../commons/Styles';
 
@@ -7,6 +7,7 @@ import { styles } from '../commons/Styles';
 
 const AboutMe = ({ visible, onDismiss }) => {
 
+    // 'https://santi1991.github.io/me'
     const supportedURL = 'https://santi1991.github.io/me';
 
     const handlePress = useCallback(async () => {

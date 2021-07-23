@@ -33,17 +33,16 @@ const RangeDatePicker = ({ startDate, endDate, onConfirm, containerStyle }) => {
 	return (
 		<>			
 			<Button
-				theme={{ roundness: 3 }}
 				color='white'
 				onPress={() => setOpen(true)}
 				uppercase={false}
 				mode='contained'
 				style={[localStyles.buttonContainer, containerStyle]}
-				labelStyle={{ marginTop: 7 }}
+				labelStyle={{ fontSize:12 }}
 			>
 				{
 					`${startDate === null ? '-- / -- / -- ' : utcMsToLocalString(startDate)}` + 
-					` -> ` + 
+					` to ` + 
 					`${endDate === null ? ' -- / -- / --' : utcMsToLocalString(endDate)}`
 				}
 				
