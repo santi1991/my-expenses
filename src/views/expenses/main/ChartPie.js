@@ -9,25 +9,30 @@ import FormatNumber from '../../../utilities/components/FormatNumber';
 
 const ChartPie = ({ showAddExpense, totalExpense, pieData }) => {
 
-	// const LabelsPer = ({ slices, height, width }) => slices.map((slice, index) => {
-	// 	const { labelCentroid, pieCentroid, data } = slice;
-	// 	return (
-	// 		<Text
-	// 			key={index}
-	// 			x={pieCentroid[0]}
-	// 			y={pieCentroid[1]}
-	// 			fill='white'
-	// 			textAnchor='middle'
-	// 			alignmentBaseline='middle'
-	// 			fontSize={16}
-	// 			fontWeight='800'
-	// 			stroke='black'
-	// 			strokeWidth={0.5}
-	// 		>
-	// 			{data.value === 0 ? null : ((data.value / totalExpense) * 100).toFixed(1) + '%'}
-	// 		</Text>
-	// 	);
-	// });
+	const LabelsPer = ({ slices, height, width }) => slices.map((slice, index) => {
+		const { labelCentroid, pieCentroid, data } = slice;
+		const percentage = (data.value / totalExpense) * 100;
+		const labelPercentage = percentage.toFixed(1) + '%';
+		if (data.value === 0) {
+			return null;
+		}
+		return (
+			<Text
+				key={index}
+				x={pieCentroid[0]}
+				y={pieCentroid[1]}
+				fill='white'
+				textAnchor='middle'
+				alignmentBaseline='middle'
+				fontSize={13}
+				fontWeight='800'
+				stroke='black'
+				strokeWidth={0.2}
+			>
+				{percentage < 9 ? '' : labelPercentage}
+			</Text>
+		);
+	});
 
 	const modifyX = (positionX, name) => {
 		// -84 ** -60
@@ -49,7 +54,6 @@ const ChartPie = ({ showAddExpense, totalExpense, pieData }) => {
 			// console.log('____________')
 			// console.log(data.svg.name);
 			// console.log(labelCentroid);
-
 			if (data.value === 0) {
 				return;
 			}
@@ -113,7 +117,7 @@ const ChartPie = ({ showAddExpense, totalExpense, pieData }) => {
 						outerRadius={90}
 						labelRadius={125}
 					>
-						{/* <LabelsPer /> */}
+						<LabelsPer />
 						<Labels />
 						{/* x={-35} y={-18} */}
 						<ForeignObject x={-100} y={-18} width={100} height={100}>

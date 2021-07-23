@@ -6,7 +6,7 @@ import ExpensesList from './ExpensesList';
 import AddExpense from '../shared/components/AddExpense';
 import ResumeProfile from './ResumeProfile';
 import ExpensesFilter from './ExpensesFilter';
-import HeaderProfile from './HeaderProfile';
+// import HeaderProfile from './HeaderProfile';
 import HeaderBar from './HeaderBar';
 
 

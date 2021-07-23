@@ -7,7 +7,7 @@ import { randomInteger } from '../../../../utilities/commons/Utils';
 import Loader from '../../../../utilities/components/Loader';
 import CurrencyInput from '../../../../utilities/components/CurrencyInput';
 import { styles } from '../../../../utilities/commons/Styles';
-
+import { updateBudgetStorage } from '../../../../utilities/commons/Storage';
 
 
 
@@ -47,6 +47,7 @@ const AddBudget = ({ visible, onHideModal, category }) => {
 			return callUpdateBudget(budgetFields);
 		}
 		else {
+			budgetFields.id = randomInteger(1, 999);
 			return callPutBudget(budgetFields);
 		}
 	};
@@ -72,6 +73,8 @@ const AddBudget = ({ visible, onHideModal, category }) => {
 		// 		setLoading(false);
 		// 		handleOnDismiss();
 		// 	});
+		await updateBudgetStorage('PUT', budgetFields);
+
 		const updatedCategory = {
 			...category,
 			budget_id: randomInteger(1, 999),
@@ -107,6 +110,8 @@ const AddBudget = ({ visible, onHideModal, category }) => {
 		// 		setLoading(false);
 		// 		handleOnDismiss();
 		// 	});
+		await updateBudgetStorage('UPDATE', budgetFields);
+
 		const updatedCategory = {
 			...category,
 			budget_id: budgetFields.id,

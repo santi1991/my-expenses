@@ -7,10 +7,7 @@ import AppProvider from './src/utilities/context/AppProvider';
 const App = () => {
   return (
     <AppProvider>
-      <>
-        <StatusBar barStyle='light-content' animated={true} />
         <AppContainer />
-      </>
     </AppProvider>
   );
 };

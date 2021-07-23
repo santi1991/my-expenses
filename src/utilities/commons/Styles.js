@@ -26,6 +26,7 @@ const CombinedDefaultTheme = {
     colors: {
         ...PaperDefaultTheme.colors,
         ...NavigationDefaultTheme.colors,
+		primary: colors.primary
     },
 };
 

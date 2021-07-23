@@ -11,7 +11,7 @@ import DroplistMenu from '../../../../utilities/components/DroplistMenu';
 import StringInput from '../../../../utilities/components/StringInput';
 import SingleDatePicker from '../../../../utilities/components/SingleDatePicker';
 import { expense_categories } from '../Data';
-import { setStorageValue, getStorageValue } from '../../../../utilities/commons/Storage';
+import { updateExpenseStorage } from '../../../../utilities/commons/Storage';
 // import { putExpense, updateExpense, deleteExpense } from '../../../utilities/api/Budgets';
 
 
@@ -94,23 +94,17 @@ const AddExpense = ({ visible, onHideModal, expenseInfo, selectedCategory, selec
 		// 		handleOnDismiss();
 		// 	});
 
-		const currentExpensesList = await getStorageValue('userExpenses');
-		expenseDbFields.id = randomInteger(1, 999);
-		console.log(expenseDbFields);
-		currentExpensesList.push(expenseDbFields);
-		console.log(currentExpensesList);
-		debugger;
-		await setStorageValue('userExpenses', currentExpensesList);
-		
-
 		const newExpense = { ...expenseUiFields, id: randomInteger(1, 999) };
 
-		
+		await updateExpenseStorage('PUT', newExpense);
+
 		setExpensesGroup({ type: 'PUT_EXPENSE', payload: newExpense });
-		setTimeout(() => {            
-            setLoading(false);
+
+		setTimeout(() => {
+			setLoading(false);
 			handleOnDismiss();
-        }, 1000);
+		}, 1000);
+
 	};
 
 	const callUpdateExpense = async () => {
@@ -133,14 +127,17 @@ const AddExpense = ({ visible, onHideModal, expenseInfo, selectedCategory, selec
 		// 		setLoading(false);
 		// 		handleOnDismiss();
 		// 	});
+
+		await updateExpenseStorage('UPDATE', expenseUiFields);
+
 		const payloadObj = {
 			oldExpenseValue: expenseInfo.value, //expenseInfo comes as props, it is not directly modified
 			updatedExpense: expenseUiFields,
 			selectedCategory: selectedCategory,
 			selectedClass: selectedClass
 		};
-		setExpensesGroup({ type: 'UPDATE_EXPENSE', payload: payloadObj });	
-		setTimeout(() => {            
+		setExpensesGroup({ type: 'UPDATE_EXPENSE', payload: payloadObj });
+		setTimeout(() => {
 			setLoading(false);
 			handleOnDismiss();
 		}, 1000);
@@ -167,13 +164,15 @@ const AddExpense = ({ visible, onHideModal, expenseInfo, selectedCategory, selec
 		// 		handleOnDismiss();
 		// 	});
 
+		await updateExpenseStorage('DELETE', expenseUiFields);
+
 		const payloadObj = {
 			deletedExpense: expenseUiFields,
 			selectedCategory: selectedCategory,
 			selectedClass: selectedClass
 		};
 		setExpensesGroup({ type: 'DELETE_EXPENSE', payload: payloadObj });
-		setTimeout(() => {            
+		setTimeout(() => {
 			setLoading(false);
 			handleOnDismiss();
 		}, 1000);
@@ -232,115 +231,113 @@ const AddExpense = ({ visible, onHideModal, expenseInfo, selectedCategory, selec
 				contentContainerStyle={styles.modalContainer}
 			>
 
-				<View>
 
-					<View style={styles.modalPairContainer}>
+				<View style={styles.modalPairContainer}>
 
-						<Subheading style={styles.subheading}>Fecha de Registro</Subheading>
+					<Subheading style={styles.subheading}>Fecha de Registro</Subheading>
 
-						<SingleDatePicker
-							date={expense.date}
-							onConfirm={(newDate) => setExpense(prevState => ({ ...prevState, date: newDate }))}
-						/>
-
-					</View>
-
-					<View style={styles.modalPairContainer}>
-
-						<Subheading style={styles.subheading}>Categoría</Subheading>
-
-
-						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-
-							<DroplistMenu
-								title={expense.category_name}
-								disabled={Boolean(selectedCategory)}
-								data={expenseCategories}
-								onClickItem={onClickItemCategory}
-							/>
-						</View>
-
-					</View>
-
-					<View style={styles.modalPairContainer}>
-
-						<Subheading style={styles.subheading}>Concepto</Subheading>
-
-						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-
-							<DroplistMenu
-								title={expense.concept_name}
-								disabled={!expense.category_name}
-								data={refConceptList.current}
-								onClickItem={(item) =>
-									setExpense(prevState => ({
-										...prevState,
-										concept_name: item.name,
-										concept_id: item.id
-									}))
-								}
-							/>
-						</View>
-
-					</View>
-
-					<View style={styles.modalPairContainer}>
-
-						<Subheading style={styles.subheading}>Valor Gastado</Subheading>
-
-						<CurrencyInput
-							value={expense.value}
-							inputContainer={[styles.input, { width: 140 }]}
-							onChangeNumber={(num) => setExpense(prevState => ({ ...prevState, value: num }))}
-							placeholder={'0.0...'}
-						/>
-
-					</View>
-
-					<Subheading style={styles.subheading}>Descripción</Subheading>
-
-					<StringInput
-						value={expense.description}
-						onChangeText={(text) => setExpense(prevState => ({ ...prevState, description: text }))}
-						placeholder={'Pago Arriendo del mes ...'}
-						inputStyle={{ width: '100%' }}
+					<SingleDatePicker
+						date={expense.date}
+						onConfirm={(newDate) => setExpense(prevState => ({ ...prevState, date: newDate }))}
 					/>
 
-					<View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginTop: 15 }} >
-						{
-							expenseInfo && (
-								<IconButton
-									icon='delete-forever'
-									size={28}
-									color='red'
-									onPress={onPressDelete}
-									style={{ marginRight: 20 }}
-								/>
-							)
-						}
-						<Button
-							mode='contained'
-							onPress={handleOnDismiss}
-							color='#546E7A'
-						>
-							Cancelar
-						</Button>
-						<Button
-							disabled={!expense.category_name || !expense.concept_name || !expense.value || !expense.date}
-							mode='contained'
-							onPress={onPressAccept}
-						>
-							{expenseInfo ? 'Editar' : 'Crear'} Gasto
-						</Button>
+				</View>
 
+				<View style={styles.modalPairContainer}>
+
+					<Subheading style={styles.subheading}>Categoría</Subheading>
+
+
+					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+						<DroplistMenu
+							title={expense.category_name}
+							disabled={Boolean(selectedCategory)}
+							data={expenseCategories}
+							onClickItem={onClickItemCategory}
+						/>
 					</View>
-					{
-						loading && (
-							<Loader loading={loading} />
-						)
-					}
 
 				</View>
+
+				<View style={styles.modalPairContainer}>
+
+					<Subheading style={styles.subheading}>Concepto</Subheading>
+
+					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+						<DroplistMenu
+							title={expense.concept_name}
+							disabled={!expense.category_name}
+							data={refConceptList.current}
+							onClickItem={(item) =>
+								setExpense(prevState => ({
+									...prevState,
+									concept_name: item.name,
+									concept_id: item.id
+								}))
+							}
+						/>
+					</View>
+
+				</View>
+
+				<View style={styles.modalPairContainer}>
+
+					<Subheading style={styles.subheading}>Valor Gastado</Subheading>
+
+					<CurrencyInput
+						value={expense.value}
+						inputContainer={[styles.input, { width: 140 }]}
+						onChangeNumber={(num) => setExpense(prevState => ({ ...prevState, value: num }))}
+						placeholder={'0.0...'}
+					/>
+
+				</View>
+
+				<Subheading style={styles.subheading}>Descripción</Subheading>
+
+				<StringInput
+					value={expense.description}
+					onChangeText={(text) => setExpense(prevState => ({ ...prevState, description: text }))}
+					placeholder={'Pago Arriendo del mes ...'}
+					inputStyle={{ width: '100%' }}
+				/>
+
+				<View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginTop: 15 }} >
+					{
+						expenseInfo && (
+							<IconButton
+								icon='delete-forever'
+								size={28}
+								color='red'
+								onPress={onPressDelete}
+								style={{ marginRight: 20 }}
+							/>
+						)
+					}
+					<Button
+						mode='contained'
+						onPress={handleOnDismiss}
+						color='#546E7A'
+					>
+						Cancelar
+					</Button>
+					<Button
+						disabled={!expense.category_name || !expense.concept_name || !expense.value || !expense.date}
+						mode='contained'
+						onPress={onPressAccept}
+					>
+						{expenseInfo ? 'Editar' : 'Crear'} Gasto
+					</Button>
+
+				</View>
+				{
+					loading && (
+						<Loader loading={loading} />
+					)
+				}
+
 
 			</Modal>
 		</Portal>

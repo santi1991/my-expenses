@@ -76,7 +76,7 @@ const localStyles = StyleSheet.create({
 		flexDirection: 'row',
 		//alignItems: 'center',
 		justifyContent: Platform.OS === 'web' ? 'space-evenly' : 'space-around',
-		marginTop: 5,
+		marginTop: 8,
 		marginBottom: 5
 	},
 	categorySurface: {

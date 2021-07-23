@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-// import { styles } from '../../../utilities/commons/Styles';
-import { View, StyleSheet, Platform } from 'react-native';
-import { Appbar, IconButton, Menu, Searchbar } from 'react-native-paper';
+import { StyleSheet, Platform } from 'react-native';
+import { Appbar, Menu, Searchbar } from 'react-native-paper';
 
 const HeaderBar = ({ color, navigation, filterFunction, masterDataSource, showFilter }) => {
 
@@ -86,35 +85,10 @@ const HeaderBar = ({ color, navigation, filterFunction, masterDataSource, showFi
 };
 export default HeaderBar;
 
-const styles = StyleSheet.create({
-    headerContainer: {
-        backgroundColor: '#263238',
-        width: '100%',
-        height: 50,
-        flexDirection: 'row',
-        alignItems: 'center',
-        elevation: 5
-    },
-    actionContainer: {
-        height: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flex: 0.11
-    },
+const styles = StyleSheet.create({        
     searchBarStyle: {
         height: 35,               
         width: Platform.OS === 'web' ? '45%' : 220
     }
 });
 
-
-{/* <Menu
-                visible={visible}
-                onDismiss={closeMenu}
-                anchor={
-                    <Appbar.Action icon="menu" color="white" onPress={openMenu} />
-                }>
-                <Menu.Item onPress={() => { console.log('Option 1 was pressed') }} title="Option 1" />
-                <Menu.Item onPress={() => { console.log('Option 2 was pressed') }} title="Option 2" />
-                <Menu.Item onPress={() => { console.log('Option 3 was pressed') }} title="Option 3" disabled />
-            </Menu> */}

@@ -71,7 +71,26 @@ const DroplistMenu = ({ disabled, data, onClickItem, initialNumToRender = 10, ti
 					</TouchableView>
 				}
 			>
-				<View style={{ flex: 1, height: 180, width: 180, paddingTop: 0 }} >
+				{
+					data.map((item) => {
+						return (
+							<Menu.Item
+								key={item.id}
+								onPress={() => itemPressed(item)}
+								title={item.name}
+							/>
+							// <Stack.Screen
+							// 	key={a.id}
+							// 	name={a.name}
+							// 	component={a.component}
+							// 	options={a.options}
+							// />
+						);
+					})
+				}	
+
+
+				{/* <View style={{ flex: 1, height: 180, width: 180, paddingTop: 0 }} >
 					<FlatList
 						data={data}
 						renderItem={renderItems}
@@ -79,7 +98,7 @@ const DroplistMenu = ({ disabled, data, onClickItem, initialNumToRender = 10, ti
 						ItemSeparatorComponent={() => <Divider />}
 						initialNumToRender={initialNumToRender}
 					/>
-				</View>
+				</View> */}
 			</Menu>
 		</View>
 	);

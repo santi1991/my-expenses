@@ -1,13 +1,12 @@
 import React, { useState, useRef, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button } from 'react-native-paper';
 import { AppContext } from '../../../utilities/context/AppProvider';
 import ChartPie from './ChartPie';
 import CategoryList from './CategoryList';
 import HeaderBar from './HeaderBar';
 import AddExpense from '../shared/components/AddExpense';
 import AddBudget from '../shared/components/AddBudget';
-
+import AboutMe from '../../../utilities/components/AboutMe';
 
 const ExpenseScreen = ({ navigation, route }) => {
 
@@ -35,6 +34,10 @@ const ExpenseScreen = ({ navigation, route }) => {
         setAddBudgetVisible(false);
     };
 
+    const [aboutVisible, setAboutVisible] = useState(false);
+	const showAboutMe = () => setAboutVisible(true);
+	const hideAboutMe = () => setAboutVisible(false);
+
     const toEditExpenses = (category) => {
         if (category.value === 0) {
             return alert('Aún no tienes datos registrados');
@@ -51,6 +54,7 @@ const ExpenseScreen = ({ navigation, route }) => {
 
             <HeaderBar
 				showAddExpense={showAddExpense}
+                showAboutMe={showAboutMe}
 			/>
 
             <ChartPie
@@ -77,6 +81,13 @@ const ExpenseScreen = ({ navigation, route }) => {
                 category={refCategory.current}
             // {...refCategory.current}
             />
+            {
+				aboutVisible &&
+                    <AboutMe
+                        visible={aboutVisible}
+                        onDismiss={hideAboutMe}
+                    />
+			}
         
         </View>
     );
