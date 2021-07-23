@@ -1,19 +1,32 @@
 {
   "files": {
-    "app.js": "/my-expenses/static/js/app.e658434f.chunk.js",
-    "app.js.map": "/my-expenses/static/js/app.e658434f.chunk.js.map",
+    "app.js": "/my-expenses/static/js/app.67c3473a.chunk.js",
+    "app.js.map": "/my-expenses/static/js/app.67c3473a.chunk.js.map",
     "runtime~app.js": "/my-expenses/static/js/runtime~app.49d9050e.js",
     "runtime~app.js.map": "/my-expenses/static/js/runtime~app.49d9050e.js.map",
-    "static/js/2.1c46f23f.chunk.js": "/my-expenses/static/js/2.1c46f23f.chunk.js",
-    "static/js/2.1c46f23f.chunk.js.map": "/my-expenses/static/js/2.1c46f23f.chunk.js.map",
+    "static/js/2.54197d5b.chunk.js": "/my-expenses/static/js/2.54197d5b.chunk.js",
+    "static/js/2.54197d5b.chunk.js.map": "/my-expenses/static/js/2.54197d5b.chunk.js.map",
+    "fonts/AntDesign.ttf": "/my-expenses/./fonts/AntDesign.ttf",
+    "fonts/Entypo.ttf": "/my-expenses/./fonts/Entypo.ttf",
+    "fonts/Feather.ttf": "/my-expenses/./fonts/Feather.ttf",
+    "fonts/FontAwesome.ttf": "/my-expenses/./fonts/FontAwesome.ttf",
+    "fonts/FontAwesome5_Brands.ttf": "/my-expenses/./fonts/FontAwesome5_Brands.ttf",
+    "fonts/FontAwesome5_Solid.ttf": "/my-expenses/./fonts/FontAwesome5_Solid.ttf",
+    "fonts/Fontisto.ttf": "/my-expenses/./fonts/Fontisto.ttf",
+    "fonts/Foundation.ttf": "/my-expenses/./fonts/Foundation.ttf",
+    "fonts/Ionicons.ttf": "/my-expenses/./fonts/Ionicons.ttf",
+    "fonts/MaterialCommunityIcons.ttf": "/my-expenses/./fonts/MaterialCommunityIcons.ttf",
+    "fonts/MaterialIcons.ttf": "/my-expenses/./fonts/MaterialIcons.ttf",
+    "fonts/SimpleLineIcons.ttf": "/my-expenses/./fonts/SimpleLineIcons.ttf",
     "index.html": "/my-expenses/index.html",
     "manifest.json": "/my-expenses/manifest.json",
     "serve.json": "/my-expenses/serve.json",
-    "static/js/2.1c46f23f.chunk.js.LICENSE.txt": "/my-expenses/static/js/2.1c46f23f.chunk.js.LICENSE.txt"
+    "static/js/2.54197d5b.chunk.js.LICENSE.txt": "/my-expenses/static/js/2.54197d5b.chunk.js.LICENSE.txt",
+    "static/media/avatar.png": "/my-expenses/static/media/avatar.ca01abb8.png"
   },
   "entrypoints": [
     "static/js/runtime~app.49d9050e.js",
-    "static/js/2.1c46f23f.chunk.js",
-    "static/js/app.e658434f.chunk.js"
+    "static/js/2.54197d5b.chunk.js",
+    "static/js/app.67c3473a.chunk.js"
   ]
 }
