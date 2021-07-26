@@ -20,6 +20,5 @@ These are some of the libraries I usually implement:
 - [Expo](https://docs.expo.io/) - framework and a platform for universal React applications.
 
 ## What's next...
-- Keep a **postgreSQL** instance up for the project.
 - I will attached the project again to a [Google Cloud Platform](https://cloud.google.com/) instance and its services once the project starts to grow over time by adding some more functionality like reports....
 
